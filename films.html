@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Films — Art du Clip</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Archivo Narrow";font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/archivo-narrow.woff2") format("woff2")}
+.legal{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:9px;line-height:1;letter-spacing:.05em;text-transform:uppercase;color:var(--grey)}
+@font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/archivo-black.woff2") format("woff2")}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#F2EDE3; --ink:#14120F; --grey:#6E675C; --hair:#DCD3C4;
+  --pad:clamp(20px,3.4vw,50px);
+}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:"Inter Tight",sans-serif;font-size:16px;line-height:1.45}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase}
+
+header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:7px var(--pad) 0}
+header .wordmark img{height:clamp(26px,2.6vw,36px);width:auto;display:block}
+header nav{display:flex;gap:26px;grid-column:3;justify-self:end;margin-right:calc(-1 * var(--sbw,0px))}
+header nav a{color:var(--grey);transition:color .25s}
+header nav a:hover,header nav a[aria-current]{color:var(--ink)}
+header nav a[aria-current]{border-bottom:1px solid #F2EDE3;padding-bottom:2px}
+
+main{padding:clamp(40px,6.4vw,88px) var(--pad) 0}
+h1{font-family:"Archivo Black",sans-serif;font-weight:400;
+  font-size:clamp(56px,9.4vw,148px);line-height:.88;letter-spacing:-.035em;text-transform:uppercase;
+  margin-bottom:clamp(30px,4.6vw,64px)}
+
+/* deux colonnes inégales, aucune image recadrée */
+.mosaic{display:grid;grid-template-columns:1.12fr .95fr;column-gap:clamp(20px,3.2vw,58px);align-items:start}
+.col{display:flex;flex-direction:column;gap:clamp(28px,3.8vw,68px)}
+.col.two{padding-top:0}
+
+a.film{display:block;width:100%}
+a.film.s60{width:60%}
+a.film.s64{width:64%}
+a.film.s66{width:66%}
+a.film.s70{width:70%}
+a.film.s78{width:78%}
+a.film.s84{width:84%}
+a.film.s86{width:86%}
+a.film.s88{width:88%}
+a.film.s92{width:92%}
+a.film.s100{width:100%}
+a.film.r{margin-left:auto}
+a.film.c{margin-inline:auto}
+
+a.film video,a.film img{display:block;width:100%;height:auto;background:var(--hair)}
+a.film .what{transition:color .25s}
+a.film:hover .what{color:var(--ink)}
+figcaption{padding-top:10px}
+figcaption .who{display:block;font-family:"Archivo Black",sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(13px,.95vw,15px);letter-spacing:-.005em;line-height:1.3;padding-top:4px}
+figcaption .what{display:block;color:var(--grey);font-weight:300;
+  font-size:clamp(14px,1.05vw,17px);line-height:1.2;letter-spacing:-.01em}
+
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:clamp(64px,9vw,140px);padding:16px var(--pad) 22px;color:var(--grey)}
+
+@media (max-width:900px){
+  header{padding:16px 16px 0}
+  header nav a{font-size:9px}
+  main{padding:34px 16px 0}
+  h1{margin-bottom:26px}
+  .mosaic{grid-template-columns:1fr}
+  .col{padding-top:0;gap:32px}
+  .col.two{padding-top:32px}
+  a.film.s60,a.film.s64,a.film.s66,a.film.s70,a.film.s78,a.film.s84,a.film.s86,a.film.s88,a.film.s92{width:100%;margin-left:0;margin-inline:0}
+  footer{padding:14px 16px 18px}
+}
+
+/* nav : Archivo Narrow capitales */
+header nav a,.navlinks a,#nav .navlinks a{font-family:"Archivo Narrow",sans-serif!important;font-weight:700!important;text-transform:uppercase;letter-spacing:.07em;font-size:clamp(12px,1.05vw,14px)!important}
+header nav a:hover,header nav a[aria-current],.navlinks a:hover{color:var(--ink)}
+/* ---- ciel partagé ---- */
+html{background:#1E5480}
+body.sky{background:transparent}
+.bg{position:fixed;left:-8vw;top:-8vh;width:116vw;height:116vh;z-index:-2;pointer-events:none;
+  background:url("assets/img/ciel.jpg") center/cover no-repeat;
+  animation:derive 78s cubic-bezier(.37,0,.63,1) infinite alternate;will-change:transform}
+@keyframes derive{from{transform:scale(1.02) translate3d(-1.2%,0.4%,0)}to{transform:scale(1.11) translate3d(1.6%,-1.1%,0)}}
+.ciel-voile{position:fixed;inset:0;z-index:-1;pointer-events:none;background:transparent;
+  transition:background 1.8s ease,opacity 1.8s ease}
+.pluie{position:fixed;inset:-10%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.4s ease;
+  background-image:repeating-linear-gradient(104deg,rgba(255,255,255,.30) 0 1px,transparent 1px 7px);
+  background-size:auto 200px;animation:averse 1.1s linear infinite}
+@keyframes averse{from{background-position:0 0}to{background-position:-60px 200px}}
+.nuit-teinte{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#0B1A4A;mix-blend-mode:color;opacity:0;transition:opacity 2.2s ease}
+.etoiles{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 2.2s ease;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%,rgba(255,255,255,.95),transparent 60%),
+    radial-gradient(1px 1px at 28% 62%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(1.4px 1.4px at 41% 27%,rgba(255,255,255,.8),transparent 60%),
+    radial-gradient(1px 1px at 55% 74%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(1px 1px at 67% 12%,rgba(255,255,255,.75),transparent 60%),
+    radial-gradient(1.2px 1.2px at 79% 45%,rgba(255,255,255,.85),transparent 60%),
+    radial-gradient(1px 1px at 88% 81%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(1px 1px at 6% 88%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(1px 1px at 34% 6%,rgba(255,255,255,.45),transparent 60%),
+    radial-gradient(1px 1px at 61% 51%,rgba(255,255,255,.4),transparent 60%),
+    radial-gradient(1px 1px at 93% 22%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(1px 1px at 18% 41%,rgba(255,255,255,.35),transparent 60%);
+  background-size:520px 520px;background-repeat:repeat;animation:scintille 9s ease-in-out infinite alternate}
+@keyframes scintille{from{opacity:.85}to{opacity:1}}
+.lune{position:fixed;right:12%;top:19%;width:42px;height:42px;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 38% 36%,#FFFDF3 0%,#F3EBD8 62%,#DED2B6 100%);
+  box-shadow:0 0 26px 7px rgba(255,250,232,.30),0 0 84px 32px rgba(220,228,255,.16);
+  opacity:0;transition:opacity 2.4s ease}
+.grain{position:fixed;inset:-120px;z-index:-1;pointer-events:none;opacity:.34;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27220%27%20height=%27220%27%3E%3Cfilter%20id=%27n%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.9%27%20numOctaves=%274%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20type=%27saturate%27%20values=%270%27/%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type=%27linear%27%20slope=%272.6%27%20intercept=%27-0.8%27/%3E%3CfeFuncG%20type=%27linear%27%20slope=%272.6%27%20intercept=%27-0.8%27/%3E%3CfeFuncB%20type=%27linear%27%20slope=%272.6%27%20intercept=%27-0.8%27/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect%20width=%27220%27%20height=%27220%27%20filter=%27url(%23n)%27/%3E%3C/svg%3E");background-size:220px 220px;background-repeat:repeat;
+  animation:grains 1.1s steps(7) infinite;will-change:transform}
+@keyframes grains{0%{transform:translate3d(0,0,0)}14%{transform:translate3d(-14px,9px,0)}28%{transform:translate3d(11px,-13px,0)}
+  42%{transform:translate3d(-9px,-7px,0)}57%{transform:translate3d(13px,12px,0)}71%{transform:translate3d(-12px,6px,0)}
+  85%{transform:translate3d(8px,-11px,0)}100%{transform:translate3d(0,0,0)}}
+.vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 78% 78% at 50% 46%,rgba(0,0,0,0) 52%,rgba(0,0,0,.20) 100%)}
+
+body[data-ciel="clair"] .bg{filter:none}
+body[data-ciel="aube"] .bg{filter:saturate(1.05) brightness(.98)}
+body[data-ciel="crepuscule"] .bg{filter:saturate(1.08) brightness(.96)}
+body[data-ciel="nuageux"] .bg{filter:saturate(.55) brightness(.97)}
+body[data-ciel="brouillard"] .bg{filter:saturate(.35) brightness(1.05)}
+body[data-ciel="pluie"] .bg{filter:saturate(.22) brightness(.82)}
+body[data-ciel="orage"] .bg{filter:saturate(.15) brightness(.58)}
+body[data-ciel="neige"] .bg{filter:saturate(.35) brightness(1.08)}
+body[data-ciel="nuit"] .bg{filter:brightness(.5) saturate(.95)}
+body[data-ciel="nuit"] .etoiles,body[data-ciel="nuit"] .lune{opacity:1}
+body[data-ciel="nuit"] .grain{opacity:.40}
+
+body[data-ciel="nuit"]{--ink:#F2EDE3;--grey:rgba(242,237,227,.72);--hair:rgba(242,237,227,.22)}
+body.sky:not([data-ciel="nuit"]){--grey:#14120F}
+.wordmark .lg-white{display:none}
+body[data-ciel="nuit"] header nav a{color:#F2EDE3}
+body[data-ciel="nuit"] .wordmark .lg-ink{display:none}
+body[data-ciel="nuit"] .wordmark .lg-white{display:block}
+@media(prefers-reduced-motion:reduce){.bg,.pluie,.grain,.etoiles{animation:none}}
+/* ---- vignette vidéo : pas de bouton play natif ---- */
+.media{position:relative;display:block;overflow:hidden;background:var(--hair)}
+.media img{display:block;width:100%;height:auto}
+.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;background:transparent}
+</style>
+<script>if(new URLSearchParams(location.search).has('still')){document.documentElement.setAttribute('data-still','1');}</script>
+<style>html[data-still] *{transition:none!important;animation:none!important}</style>
+</head>
+<body class="sky">
+<div class="bg" aria-hidden="true"></div>
+<div class="ciel-voile" aria-hidden="true"></div>
+<div class="nuit-teinte" aria-hidden="true"></div>
+<div class="etoiles" aria-hidden="true"></div>
+<div class="lune" aria-hidden="true"></div>
+<div class="pluie" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header>
+  <a class="wordmark" href="index.html" aria-label="Art du Clip">
+    <img class="lg-ink" src="assets/logo_vector_ink.svg" alt="Art du Clip">
+    <img class="lg-white" src="assets/logo_vector.svg" alt="">
+  </a>
+  <nav class="mono">
+    <a href="films.html" aria-current="page">Films</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Films</h1>
+
+  <div class="mosaic">
+    <div class="col">
+      <a class="film s100" href="https://www.youtube.com/watch?v=sJsOpYqBeuk" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/keblack_bababa.jpg?v=8" alt=""><video src="assets/videos/keblack_bababa.mp4?v=8" poster="assets/stills/keblack_bababa.jpg?v=8" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack</span><span class="what">Bababa</span></figcaption>
+      </a>
+
+      <a class="film s70 r" href="https://www.youtube.com/watch?v=78hQVC5njKc" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/boulot.jpg?v=3" alt=""><video src="assets/videos/boulot.mp4?v=8" poster="assets/boulot.jpg?v=3" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack ft. SDM</span><span class="what">Boulot</span></figcaption>
+      </a>
+
+      <a class="film s92" href="https://www.youtube.com/watch?v=FlmtZVgEn6M" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/quille.jpg?v=8" alt=""><video src="assets/videos/quille.mp4?v=8" poster="assets/stills/quille.jpg?v=8" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Naza ft. Ninho</span><span class="what">Quillé</span></figcaption>
+      </a>
+
+      <a class="film s86 r" href="https://www.youtube.com/watch?v=z-NidfueX3g" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/focus.jpg?v=3" alt=""><video src="assets/videos/focus.mp4?v=1" poster="assets/stills/focus.jpg?v=3" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack</span><span class="what">Focus, teaser de l’album</span></figcaption>
+      </a>
+    </div>
+
+    <div class="col two">
+      <a class="film s64" href="https://www.youtube.com/watch?v=dxnacr0NriQ" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/melrose.jpg?v=4" alt=""><video src="assets/videos/melrose.mp4?v=9" poster="assets/melrose.jpg?v=4" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack ft. Guy2Bezbar</span><span class="what">Melrose Place</span></figcaption>
+      </a>
+
+      <a class="film s86 r" href="https://www.youtube.com/watch?v=Bp-Yh2rY3LA" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/shayo.jpg?v=10" alt=""><video src="assets/videos/shayo.mp4?v=10" poster="assets/stills/shayo.jpg?v=10" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Heuss L’Enfoiré ft. Keblack</span><span class="what">Shayo</span></figcaption>
+      </a>
+
+      <a class="film s78 c" href="https://www.youtube.com/watch?v=BnHsYhudskM" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/handsup.jpg?v=9" alt=""><video src="assets/videos/handsup.mp4?v=9" poster="assets/stills/handsup.jpg?v=9" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack &amp; Franglish ft. iDS</span><span class="what">Haut les mains</span></figcaption>
+      </a>
+
+      <a class="film s60 r" href="https://www.youtube.com/watch?v=Ow07uqhyYwo" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/mood.jpg?v=8" alt=""><video src="assets/videos/mood.mp4?v=8" poster="assets/stills/mood.jpg?v=8" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Keblack</span><span class="what">Mood</span></figcaption>
+      </a>
+
+      <a class="film s78" href="https://www.youtube.com/watch?v=5ChCZ8g61TQ" target="_blank" rel="noopener">
+        <span class="media"><img src="assets/stills/une_histoire.jpg?v=8" alt=""><video src="assets/videos/une_histoire.mp4?v=8" poster="assets/stills/une_histoire.jpg?v=8" muted loop playsinline preload="metadata"></video></span>
+        <figcaption><span class="who">Naza ft. Tiakola</span><span class="what">Une histoire</span></figcaption>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="mono">
+  <span class="legal">© 2026 ART DU CLIP ALL RIGHTS RESERVED</span>
+</footer>
+
+<script>
+/* les extraits tournent en boucle ; on ne lance que ce qui approche de l'écran */
+(function(){
+  const vids=[...document.querySelectorAll('a.film video')];
+  function check(){
+    vids.forEach(v=>{
+      if(v.dataset.on) return;
+      const r=v.getBoundingClientRect();
+      if(r.top < innerHeight+300 && r.bottom > -300){ v.dataset.on='1'; v.play().catch(()=>{}); }
+    });
+  }
+  addEventListener('scroll',check,{passive:true});
+  check(); setTimeout(check,500);
+})();
+</script>
+<script>
+(function(){
+  var voile=document.querySelector('.ciel-voile'),pluie=document.querySelector('.pluie');
+  var force=new URLSearchParams(location.search).get('ciel');
+  /* même phase d'animation sur toutes les pages, recalée sur l'horloge */
+  (function(){var bg=document.querySelector('.bg');if(!bg)return;
+    var cycle=156; /* 78 s x 2 (alternate) */
+    bg.style.animationDelay='-'+(((Date.now()/1000)%cycle).toFixed(2))+'s';})();
+  function heureParis(){try{var h=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());
+    return parseInt(h.split(':')[0],10)+parseInt(h.split(':')[1],10)/60;}catch(e){var d=new Date();return d.getHours()+d.getMinutes()/60;}}
+  function famille(code){if(code===0||code===1)return 'clair';if(code===2||code===3)return 'nuageux';
+    if(code===45||code===48)return 'brouillard';if(code>=51&&code<=67)return 'pluie';if(code>=71&&code<=77)return 'neige';
+    if(code>=80&&code<=82)return 'pluie';if(code>=85&&code<=86)return 'neige';if(code>=95)return 'orage';return 'nuageux';}
+  var VOILES={clair:'transparent',
+    nuageux:'linear-gradient(180deg,rgba(126,136,148,.30),rgba(110,120,134,.34))',
+    brouillard:'linear-gradient(180deg,rgba(206,210,214,.46),rgba(196,200,206,.42))',
+    pluie:'linear-gradient(180deg,rgba(58,70,86,.46),rgba(44,56,72,.52))',
+    neige:'linear-gradient(180deg,rgba(214,224,234,.40),rgba(200,212,224,.38))',
+    orage:'linear-gradient(180deg,rgba(32,38,54,.60),rgba(22,28,44,.66))',
+    aube:'linear-gradient(180deg,rgba(255,168,120,.34) 0%,rgba(120,120,170,.30) 55%,rgba(40,52,88,.42) 100%)',
+    crepuscule:'linear-gradient(180deg,rgba(255,132,66,.32) 0%,rgba(196,96,86,.26) 45%,rgba(38,42,74,.50) 100%)',
+    nuit:'linear-gradient(180deg,rgba(6,10,30,.56),rgba(3,6,20,.66))'};
+  function applique(e){document.body.setAttribute('data-ciel',e);
+    voile.style.background=VOILES[e]||'transparent';
+    pluie.style.opacity=(e==='pluie')?'.26':(e==='orage'?'.32':'0');}
+  function depuisHeure(){var h=heureParis();if(h<5.5||h>=21.5)return 'nuit';if(h<8)return 'aube';if(h>=18&&h<20.5)return 'crepuscule';return 'clair';}
+  function meteo(){
+    if(force){applique(force);return;}
+    var h=heureParis();
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&current=weather_code,is_day&timezone=Europe%2FParis')
+      .then(function(r){return r.json()}).then(function(d){
+        var c=d&&d.current;if(!c){applique(depuisHeure());return;}
+        if(c.is_day!==1){applique('nuit');return;}
+        if(h<8){applique('aube');return;}
+        if(h>=18&&h<20.5&&c.weather_code<=2){applique('crepuscule');return;}
+        applique(famille(c.weather_code));
+      }).catch(function(){applique(depuisHeure())});
+  }
+  meteo();setInterval(meteo,600000);
+})();
+</script>
+<script>
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('.media video'));
+  function relance(){ vids.forEach(function(v){ if(v.paused) v.play().catch(function(){}); }); }
+  ['pointerdown','touchstart','keydown'].forEach(function(e){ addEventListener(e,relance,{once:true,passive:true}); });
+  setTimeout(relance,1200);
+})();
+</script>
+<script>
+(function(){var sw=window.innerWidth-document.documentElement.clientWidth;
+  if(sw>0)document.documentElement.style.setProperty('--sbw',sw+'px');})();
+</script>
+</body>
+</html>
