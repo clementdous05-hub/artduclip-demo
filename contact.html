@@ -362,9 +362,9 @@ body.sky{background:transparent!important}
 /* ---- easter egg : avions ---- */
 .planes{position:fixed;inset:0;pointer-events:none;z-index:2}
 .plane{position:fixed;top:var(--y);left:-14vw;width:var(--w);height:auto;padding:0;border:0;background:none;
-  cursor:pointer;pointer-events:auto;opacity:.5;filter:blur(.2px);
+  cursor:pointer;pointer-events:auto;opacity:.62;filter:blur(.15px);
   animation:vol var(--d) linear var(--delay) infinite;transition:opacity .35s ease}
-.plane svg{display:block;width:100%;height:auto;fill:#0A0A0A}
+.plane{color:#0A0A0A}.plane svg{display:block;width:100%;height:auto}
 .plane svg path{transform:rotate(-12deg);transform-origin:center}
 .plane:hover,.plane:focus-visible{opacity:.95;outline:none}
 @keyframes vol{from{transform:translate3d(0,0,0)}to{transform:translate3d(130vw,var(--dy),0)}}
@@ -412,7 +412,8 @@ body[data-ciel="nuit"] .legal,
 body[data-ciel="nuit"] .navlinks a{color:#F2EDE3!important}
 body[data-ciel="nuit"] .navlinks a[aria-current]{color:#F2EDE3!important;border-bottom-color:#F2EDE3!important}
 body[data-ciel="nuit"] .lgx{background:#F2EDE3}
-body[data-ciel="nuit"] .plane svg{fill:#F2EDE3}
+body[data-ciel="nuit"] .plane{color:#F2EDE3}
+body[data-ciel="nuit"] .plane svg path[stroke]{stroke:#F2EDE3}
 body[data-ciel="nuit"] .coord a:hover,body[data-ciel="nuit"] .mail:hover{color:#FFC08A}
 /* ---- étoiles de nuit ---- */
 .etoiles{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 2.2s ease;
@@ -501,9 +502,9 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   <a class="lgx" href="index.html" aria-label="Art du Clip, retour à l'accueil"></a>
 
   <div class="planes">
-    <button class="plane" style="--y:28%;--d:58s;--delay:3s;--w:30px;--dy:4vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 64 64"><path d="M62 32 L38 28 L28 6 L22 6 L26 27 L10 25 L4 18 L0 18 L4 32 L0 46 L4 46 L10 39 L26 37 L22 58 L28 58 L38 36 L62 32Z"/></svg></button>
-    <button class="plane" style="--y:70%;--d:74s;--delay:26s;--w:22px;--dy:-5vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 64 64"><path d="M62 32 L38 28 L28 6 L22 6 L26 27 L10 25 L4 18 L0 18 L4 32 L0 46 L4 46 L10 39 L26 37 L22 58 L28 58 L38 36 L62 32Z"/></svg></button>
-    <button class="plane" style="--y:83%;--d:96s;--delay:52s;--w:18px;--dy:6vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 64 64"><path d="M62 32 L38 28 L28 6 L22 6 L26 27 L10 25 L4 18 L0 18 L4 32 L0 46 L4 46 L10 39 L26 37 L22 58 L28 58 L38 36 L62 32Z"/></svg></button>
+    <button class="plane" style="--y:28%;--d:58s;--delay:3s;--w:64px;--dy:4vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
+    <button class="plane" style="--y:70%;--d:74s;--delay:26s;--w:48px;--dy:-5vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
+    <button class="plane" style="--y:83%;--d:96s;--delay:52s;--w:38px;--dy:6vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
   </div>
 
   <div class="hangar" id="hangar" hidden>
