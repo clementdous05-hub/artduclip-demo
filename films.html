@@ -492,9 +492,17 @@ html.sortie body{pointer-events:none}
   }
   function surveille(v){
     setTimeout(function(){
-      if(v.dataset.vu!=='1'||!v.paused) return;
-      setTimeout(function(){ if(v.dataset.vu==='1'&&v.paused) bascule(v); },1600);
-    },1800);
+      if(v.dataset.vu!=='1') return;
+      var depart=v.currentTime, etaitPause=v.paused;
+      setTimeout(function(){
+        if(v.dataset.vu!=='1') return;
+        var avance=v.currentTime-depart;
+        if(v.paused || avance<0.15){
+          // bloquee, en tampon, ou figee : l'image animee prend le relais
+          bascule(v);
+        }
+      },1400);
+    },1200);
   }
 
   if('IntersectionObserver' in window){
@@ -509,6 +517,8 @@ html.sortie body{pointer-events:none}
 
   vids.forEach(function(v){
     v.addEventListener('canplay',function(){ if(v.dataset.vu==='1'&&v.paused) joue(v); });
+    v.addEventListener('error',function(){ bascule(v); });
+    v.addEventListener('stalled',function(){ setTimeout(function(){ if(v.dataset.vu==='1'&&v.currentTime<0.15) bascule(v); },2200); });
     v.addEventListener('pause',function(){ if(v.dataset.vu==='1'&&!document.hidden) setTimeout(function(){ if(v.paused&&v.dataset.vu==='1') joue(v); },260); });
   });
 
