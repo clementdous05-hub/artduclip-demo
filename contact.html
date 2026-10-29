@@ -529,6 +529,7 @@ body[data-ciel="nuit"] .grain{opacity:.40}
     <button class="plane" style="--w:42px;--d:64s;--delay:2s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 50C10 37 26 31 46 31h94c22 0 37 6 47 19-10 13-25 19-47 19H46C26 69 10 63 10 50Z" fill="currentColor"/><path d="M78 69h54l-26 27H54z" fill="currentColor"/><path d="M144 31h22l18-31h-22z" fill="#E8452A"/><path d="M18 44h15v7H18z" fill="#F7F3EA" opacity=".9"/></svg></button>
     <button class="plane" style="--w:34px;--d:78s;--delay:24s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 50C10 37 26 31 46 31h94c22 0 37 6 47 19-10 13-25 19-47 19H46C26 69 10 63 10 50Z" fill="currentColor"/><path d="M78 69h54l-26 27H54z" fill="currentColor"/><path d="M144 31h22l18-31h-22z" fill="#E8452A"/><path d="M18 44h15v7H18z" fill="#F7F3EA" opacity=".9"/></svg></button>
     <button class="plane" style="--w:28px;--d:92s;--delay:50s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 50C10 37 26 31 46 31h94c22 0 37 6 47 19-10 13-25 19-47 19H46C26 69 10 63 10 50Z" fill="currentColor"/><path d="M78 69h54l-26 27H54z" fill="currentColor"/><path d="M144 31h22l18-31h-22z" fill="#E8452A"/><path d="M18 44h15v7H18z" fill="#F7F3EA" opacity=".9"/></svg></button>
+    <button class="plane" style="--w:24px;--d:104s;--delay:70s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 50C10 37 26 31 46 31h94c22 0 37 6 47 19-10 13-25 19-47 19H46C26 69 10 63 10 50Z" fill="currentColor"/><path d="M78 69h54l-26 27H54z" fill="currentColor"/><path d="M144 31h22l18-31h-22z" fill="#E8452A"/><path d="M18 44h15v7H18z" fill="#F7F3EA" opacity=".9"/></svg></button>
   </div>
 
   <div class="hangar" id="hangar" hidden>
@@ -561,13 +562,31 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   function close(){h.hidden=true;document.documentElement.style.overflow='';}
   document.querySelectorAll('.plane').forEach(function(b){b.addEventListener('click',open)});
   function placeAvions(){
-    var intro=document.querySelector('.intro');
-    var plafond=intro?intro.getBoundingClientRect().top-window.scrollY:window.innerHeight*.2;
-    var haut=8, bas=Math.max(haut+34, plafond-30);
+    var obs=[];
+    ['#nav','.intro','.lgx','.bottom'].forEach(function(sel){
+      var el=document.querySelector(sel); if(!el) return;
+      var r=el.getBoundingClientRect();
+      if(r.height>0) obs.push([r.top+window.scrollY, r.bottom+window.scrollY]);
+    });
+    obs.sort(function(a,b){return a[0]-b[0]});
+    var hauteur=window.innerHeight, curseur=0, bandes=[];
+    obs.forEach(function(o){
+      if(o[0]-curseur>22) bandes.push([curseur,o[0]]);
+      curseur=Math.max(curseur,o[1]);
+    });
+    if(hauteur-curseur>22) bandes.push([curseur,hauteur]);
+    if(!bandes.length) bandes.push([8, Math.max(48, hauteur*0.1)]);
     var ps=[].slice.call(document.querySelectorAll('.plane'));
+    var compte={};
+    ps.forEach(function(p,i){ var k=i%bandes.length; compte[k]=(compte[k]||0)+1; });
+    var vu={};
     ps.forEach(function(p,i){
-      var t=ps.length>1?i/(ps.length-1):.5;
-      p.style.setProperty('--y', Math.round(haut+(bas-haut)*t)+'px');
+      var k=i%bandes.length, b=bandes[k], n=compte[k];
+      vu[k]=(vu[k]||0)+1;
+      var h=p.getBoundingClientRect().height||16;
+      var utile=Math.max(0,(b[1]-b[0])-h);
+      var y=b[0]+2+utile*((vu[k]-0.5)/n);
+      p.style.setProperty('--y', Math.round(y)+'px');
     });
   }
   placeAvions();
