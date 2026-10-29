@@ -23,7 +23,8 @@ body{background:var(--paper);color:var(--ink);font-family:"Inter Tight",sans-ser
 a{color:inherit;text-decoration:none}
 .mono{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase}
 
-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--pad)}
+header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:10px var(--pad) 0}
+header .wordmark{align-self:start;padding-top:10px;display:block}
 header .wordmark img{height:clamp(26px,2.6vw,36px);width:auto;display:block}
 header nav{display:flex;gap:26px;grid-column:3;justify-self:end;align-self:start;padding-top:13px;margin-right:calc(-1 * var(--sbw,0px))}
 header nav a{color:var(--grey);transition:color .25s}
@@ -67,7 +68,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   margin-top:clamp(64px,9vw,140px);padding:16px var(--pad) 22px;color:var(--grey)}
 
 @media (max-width:900px){
-  header{padding:0 var(--pad)}
+  header{padding:10px var(--pad) 0}
   header nav{gap:14px}
   header nav a{font-size:9px}
   main{padding:34px 16px 0}
@@ -349,9 +350,20 @@ body[data-ciel="nuit"] .wordmark .lg-white{display:block}
 <script>
 (function(){
   var vids=[].slice.call(document.querySelectorAll('.media video'));
-  function relance(){ vids.forEach(function(v){ if(v.paused) v.play().catch(function(){}); }); }
-  ['pointerdown','touchstart','keydown'].forEach(function(e){ addEventListener(e,relance,{once:true,passive:true}); });
-  setTimeout(relance,1200);
+  function charge(v){ if(v.readyState<2){ try{ v.load(); }catch(e){} } }
+  function joue(v){ charge(v); var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+  function pose(v){ if(!v.paused) v.pause(); }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ joue(e.target); } else { pose(e.target); } });
+    },{rootMargin:'400px 0px',threshold:0.01});
+    vids.forEach(function(v){ io.observe(v); });
+  } else { vids.forEach(joue); }
+  ['pointerdown','touchstart','keydown','scroll'].forEach(function(e){
+    addEventListener(e,function(){ vids.forEach(joue); },{once:true,passive:true});
+  });
+  setTimeout(function(){ vids.slice(0,3).forEach(joue); },600);
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) vids.forEach(pose); });
 })();
 </script>
 <script>
