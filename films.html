@@ -162,6 +162,9 @@ body[data-ciel="nuit"] .wordmark .lg-white{display:block}
 /* ---- vignette vidéo : pas de bouton play natif ---- */
 .media{position:relative;display:block;overflow:hidden;background:var(--hair)}
 .media img{display:block;width:100%;height:auto}
+.media .anim{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;pointer-events:none}
+.media.anim-on video{display:none}
+.media.anim-on .anim{display:block}
 .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;background:transparent}
 </style>
 <script>if(new URLSearchParams(location.search).has('still')){document.documentElement.setAttribute('data-still','1');}</script>
@@ -208,49 +211,49 @@ html.sortie body{pointer-events:none}
   <div class="mosaic">
     <div class="col">
       <a class="film s100" href="https://www.youtube.com/watch?v=sJsOpYqBeuk" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/keblack_bababa.jpg?v=12" alt=""><video src="assets/videos/keblack_bababa.mp4?v=8" poster="assets/stills/keblack_bababa.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/keblack_bababa.jpg?v=12" alt=""><video src="assets/videos/keblack_bababa.mp4?v=8" poster="assets/stills/keblack_bababa.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/keblack_bababa.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack</span><span class="what">Bababa</span></figcaption>
       </a>
 
       <a class="film s70 r" href="https://www.youtube.com/watch?v=78hQVC5njKc" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/boulot.jpg?v=12" alt=""><video src="assets/videos/boulot.mp4?v=8" poster="assets/stills/boulot.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/boulot.jpg?v=12" alt=""><video src="assets/videos/boulot.mp4?v=8" poster="assets/stills/boulot.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/boulot.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack ft. SDM</span><span class="what">Boulot</span></figcaption>
       </a>
 
       <a class="film s92" href="https://www.youtube.com/watch?v=FlmtZVgEn6M" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/quille.jpg?v=12" alt=""><video src="assets/videos/quille.mp4?v=8" poster="assets/stills/quille.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/quille.jpg?v=12" alt=""><video src="assets/videos/quille.mp4?v=8" poster="assets/stills/quille.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/quille.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Naza ft. Ninho</span><span class="what">Quillé</span></figcaption>
       </a>
 
       <a class="film s86 r" href="https://www.youtube.com/watch?v=z-NidfueX3g" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/focus.jpg?v=12" alt=""><video src="assets/videos/focus.mp4?v=1" poster="assets/stills/focus.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/focus.jpg?v=12" alt=""><video src="assets/videos/focus.mp4?v=1" poster="assets/stills/focus.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/focus.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack</span><span class="what">Focus, teaser de l’album</span></figcaption>
       </a>
     </div>
 
     <div class="col two">
       <a class="film s64" href="https://www.youtube.com/watch?v=dxnacr0NriQ" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/melrose.jpg?v=12" alt=""><video src="assets/videos/melrose.mp4?v=9" poster="assets/stills/melrose.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/melrose.jpg?v=12" alt=""><video src="assets/videos/melrose.mp4?v=9" poster="assets/stills/melrose.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/melrose.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack ft. Guy2Bezbar</span><span class="what">Melrose Place</span></figcaption>
       </a>
 
       <a class="film s86 r" href="https://www.youtube.com/watch?v=Bp-Yh2rY3LA" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/shayo.jpg?v=13" alt=""><video src="assets/videos/shayo.mp4?v=13" poster="assets/stills/shayo.jpg?v=13" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/shayo.jpg?v=13" alt=""><video src="assets/videos/shayo.mp4?v=13" poster="assets/stills/shayo.jpg?v=13" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/shayo.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Heuss L’Enfoiré ft. Keblack</span><span class="what">Shayo</span></figcaption>
       </a>
 
       <a class="film s78 c" href="https://www.youtube.com/watch?v=BnHsYhudskM" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/handsup.jpg?v=12" alt=""><video src="assets/videos/handsup.mp4?v=9" poster="assets/stills/handsup.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/handsup.jpg?v=12" alt=""><video src="assets/videos/handsup.mp4?v=9" poster="assets/stills/handsup.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/handsup.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack &amp; Franglish ft. iDS</span><span class="what">Haut les mains</span></figcaption>
       </a>
 
       <a class="film s60 r" href="https://www.youtube.com/watch?v=Ow07uqhyYwo" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/mood.jpg?v=12" alt=""><video src="assets/videos/mood.mp4?v=8" poster="assets/stills/mood.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/mood.jpg?v=12" alt=""><video src="assets/videos/mood.mp4?v=8" poster="assets/stills/mood.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/mood.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Keblack</span><span class="what">Mood</span></figcaption>
       </a>
 
       <a class="film s78" href="https://www.youtube.com/watch?v=5ChCZ8g61TQ" target="_blank" rel="noopener">
-        <span class="media"><img src="assets/stills/une_histoire.jpg?v=12" alt=""><video src="assets/videos/une_histoire.mp4?v=8" poster="assets/stills/une_histoire.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video></span>
+        <span class="media"><img src="assets/stills/une_histoire.jpg?v=12" alt=""><video src="assets/videos/une_histoire.mp4?v=8" poster="assets/stills/une_histoire.jpg?v=12" muted loop playsinline webkit-playsinline preload="metadata"></video><img class="anim" data-anim="assets/anim/une_histoire.webp" alt="" aria-hidden="true"></span>
         <figcaption><span class="who">Naza ft. Tiakola</span><span class="what">Une histoire</span></figcaption>
       </a>
     </div>
@@ -471,7 +474,7 @@ html.sortie body{pointer-events:none}
     v.muted=true;
     v.setAttribute('muted','');
     var p=v.play();
-    if(p&&p.catch) p.catch(function(){ relance(v); });
+    if(p&&p.catch) p.catch(function(){ relance(v); setTimeout(function(){ if(v.paused) bascule(v); },900); });
   }
   function relance(v){
     var n=essais.get(v)||0;
@@ -480,11 +483,24 @@ html.sortie body{pointer-events:none}
     setTimeout(function(){ if(v.dataset.vu==='1'&&v.paused) joue(v); }, 300*Math.pow(1.8,n));
   }
   function pose(v){ if(!v.paused) v.pause(); }
+  function bascule(v){
+    var m=v.closest('.media'); if(!m||m.classList.contains('anim-on')) return;
+    var a=m.querySelector('.anim'); if(!a) return;
+    if(!a.getAttribute('src')) a.setAttribute('src',a.dataset.anim);
+    m.classList.add('anim-on');
+    try{ v.pause(); }catch(e){}
+  }
+  function surveille(v){
+    setTimeout(function(){
+      if(v.dataset.vu!=='1'||!v.paused) return;
+      setTimeout(function(){ if(v.dataset.vu==='1'&&v.paused) bascule(v); },1600);
+    },1800);
+  }
 
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){
-        if(e.isIntersecting){ e.target.dataset.vu='1'; joue(e.target); }
+        if(e.isIntersecting){ e.target.dataset.vu='1'; joue(e.target); surveille(e.target); }
         else { e.target.dataset.vu='0'; pose(e.target); }
       });
     },{rootMargin:'400px 0px',threshold:0.01});
