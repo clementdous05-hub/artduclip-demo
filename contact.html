@@ -447,7 +447,7 @@ body[data-ciel="nuit"] .bg{filter:brightness(.5) saturate(.95)}
 .nuit-teinte{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#0B1A4A;
   mix-blend-mode:color;opacity:0;transition:opacity 2.2s ease}
 body[data-ciel="nuit"] .nuit-teinte{opacity:0}
-.lune{position:fixed;right:12%;top:19%;width:42px;height:42px;border-radius:50%;z-index:-1;pointer-events:none;
+.lune{position:fixed;right:6%;top:6.5%;width:40px;height:40px;border-radius:50%;z-index:-1;pointer-events:none;
   background:radial-gradient(circle at 38% 36%,#FFFDF3 0%,#F3EBD8 62%,#DED2B6 100%);
   box-shadow:0 0 26px 7px rgba(255,250,232,.30),0 0 84px 32px rgba(220,228,255,.16);
   opacity:0;transition:opacity 2.4s ease}
@@ -471,6 +471,11 @@ body[data-ciel="nuit"] .grain{opacity:.40}
 @media(prefers-reduced-motion:reduce){.grain{animation:none}}
 .vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(ellipse 78% 78% at 50% 46%,rgba(0,0,0,0) 52%,rgba(0,0,0,.20) 100%)}
+/* LUNE MOBILE : degagee du manifeste */
+@media(max-width:900px){
+  .lune{top:60%;right:11%;width:36px;height:36px;
+    box-shadow:0 0 20px 5px rgba(255,250,232,.28),0 0 60px 22px rgba(220,228,255,.14)}
+}
 </style>
 <script>if(new URLSearchParams(location.search).has('still')){document.documentElement.setAttribute('data-still','1');}</script>
 <style>html[data-still] *{transition:none!important;animation:none!important}</style>
