@@ -249,6 +249,7 @@ body[data-ciel="nuit"] .wordmark .lg-white{display:block}
   var cv=document.querySelector('canvas.pluie'); if(!cv) return;
   var cx=cv.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
   var W=0,H=0,drops=[],actif=false,raf=0,force=1,dernier=0;
+  var reduit=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function neuf(partout){
     var l=14+Math.random()*26;
     return {x:Math.random()*(W+160)-80, y:partout?Math.random()*H:-60,
@@ -278,7 +279,7 @@ body[data-ciel="nuit"] .wordmark .lg-white{display:block}
       cx.lineWidth=d.w;
       cx.beginPath(); cx.moveTo(d.x,d.y); cx.lineTo(d.x-3.9,d.y+d.l*(force>1?1.2:1)); cx.stroke();
     }
-    raf=requestAnimationFrame(frame);
+    if(!reduit) raf=requestAnimationFrame(frame);
   }
   function maj(){
     var etat=document.body.getAttribute('data-ciel');
