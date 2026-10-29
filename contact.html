@@ -451,7 +451,8 @@ body[data-ciel="nuit"] .etoiles{opacity:1}
 .nuages{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;opacity:.26;transition:opacity 2.4s ease}
 .nuages i{position:absolute;top:-14%;left:-10%;width:220%;height:128%;display:block;
   background:url("assets/img/nuages.png") repeat-x;background-size:50% 100%;
-  animation:nuages 210s linear infinite;will-change:transform}
+  animation:nuages var(--nuages-duree,210s) linear infinite;will-change:transform;
+  animation-direction:var(--nuages-sens,normal)}
 .nuages i+i{animation-delay:-105s;opacity:.8}
 @keyframes nuages{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 body[data-ciel="clair"] .nuages{opacity:.16}
@@ -691,10 +692,28 @@ body[data-ciel="nuit"] .grain{opacity:.40}
     if(ph==='aube'||ph==='crepuscule') return w==='clair'?VOILES[ph]:(CHAUD[ph]+','+base);
     return base;
   }
+  var nuages=document.querySelector('.nuages');
+  var _vent=/[?&]vent=([0-9.]+)/.exec(location.search);
+  var _dir=/[?&]dir=([0-9.]+)/.exec(location.search);
+  function nuagesReels(c, ph){
+    if(!nuages) return;
+    var vent=c&&c.wind_speed_10m!=null?c.wind_speed_10m:(_vent?parseFloat(_vent[1]):12);
+    var dir=c&&c.wind_direction_10m!=null?c.wind_direction_10m:(_dir?parseFloat(_dir[1]):270);
+    if(_vent) vent=parseFloat(_vent[1]);
+    if(_dir) dir=parseFloat(_dir[1]);
+    var cou=c&&c.cloud_cover!=null?c.cloud_cover:50;
+    var duree=Math.round(420-vent*3.4);
+    duree=Math.max(70,Math.min(420,duree));
+    nuages.style.setProperty('--nuages-duree', duree+'s');
+    nuages.style.setProperty('--nuages-sens', (dir>0&&dir<180)?'reverse':'normal');
+    var op=0.04+Math.min(cou,100)/100*0.26;
+    if(ph==='nuit') op*=0.3;
+    nuages.style.opacity=op.toFixed(3);
+  }
   function meteo(){
     if(force){applique(force);return;}
     fetch('https://api.open-meteo.com/v1/forecast?latitude='+PARIS.lat+'&longitude='+PARIS.lon+
-          '&current=weather_code,cloud_cover,is_day,precipitation,rain,showers,snowfall,temperature_2m,wind_speed_10m,relative_humidity_2m&daily=sunrise,sunset,precipitation_sum,precipitation_probability_max&timezone=Europe%2FParis&forecast_days=1')
+          '&current=weather_code,cloud_cover,cloud_cover_low,cloud_cover_mid,cloud_cover_high,is_day,precipitation,rain,showers,snowfall,temperature_2m,wind_speed_10m,wind_direction_10m,relative_humidity_2m&daily=sunrise,sunset,precipitation_sum,precipitation_probability_max&timezone=Europe%2FParis&forecast_days=1')
       .then(function(r){return r.json()})
       .then(function(d){
         var c=d&&d.current?d.current:null;
@@ -714,6 +733,7 @@ body[data-ciel="nuit"] .grain{opacity:.40}
         if(ph==='nuit') etat='nuit';
         else if((ph==='aube'||ph==='crepuscule')&&(w==='clair'||w==='nuageux')) etat=ph;
         else etat=w;
+        nuagesReels(c, ph);
         applique(etat, rendu(ph,w));
       })
       .catch(function(){var ph=phase(null,null);applique(ph==='clair'?'clair':ph)});
