@@ -552,6 +552,8 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   var voile=document.querySelector('.ciel-voile'), pluie=document.querySelector('.pluie'), bg=document.querySelector('.bg');
   var force=new URLSearchParams(location.search).get('ciel');
   var heureForce=parseFloat(new URLSearchParams(location.search).get('heure'));
+  var _wx=new URLSearchParams(location.search).get('wx');
+  var wxForce=_wx===null?null:parseInt(_wx,10);
   (function(){var b=document.querySelector('.bg');if(!b)return;
     var cycle=156; b.style.animationDelay='-'+(((Date.now()/1000)%cycle).toFixed(2))+'s';})();
 
@@ -584,11 +586,11 @@ body[data-ciel="nuit"] .grain{opacity:.40}
     nuit:'linear-gradient(180deg,rgba(6,10,30,.56),rgba(3,6,20,.66))'
   };
   var dernier=null;
-  function applique(etat){
-    if(etat===dernier) { document.body.setAttribute('data-ciel',etat); return; }
-    dernier=etat;
+  function applique(etat, veille){
     document.body.setAttribute('data-ciel',etat);
-    voile.style.background=VOILES[etat]||'transparent';
+    if(etat===dernier && !veille) return;
+    dernier=etat;
+    voile.style.background=veille||VOILES[etat]||'transparent';
     pluie.style.opacity=(etat==='pluie')?'.26':(etat==='orage'?'.32':'0');
     bg.style.opacity='1';
   }
@@ -606,6 +608,18 @@ body[data-ciel="nuit"] .grain{opacity:.40}
     if(h>=lever+0.75 && h<coucher-1.0) return 'clair';
     return 'nuit';
   }
+  var DUR={brouillard:1,pluie:1,neige:1,orage:1};
+  var CHAUD={aube:'linear-gradient(0deg,rgba(255,172,120,.34) 0%,rgba(255,172,120,0) 42%)',
+             crepuscule:'linear-gradient(0deg,rgba(255,132,70,.36) 0%,rgba(255,132,70,0) 42%)'};
+  function rendu(ph,w){
+    var base=VOILES[w]||'transparent';
+    if(ph==='nuit'){
+      return (w==='clair'||w==='nuageux') ? VOILES.nuit : VOILES.nuit+','+base;
+    }
+    if(DUR[w]) return CHAUD[ph]?(CHAUD[ph]+','+base):base;
+    if(ph==='aube'||ph==='crepuscule') return w==='clair'?VOILES[ph]:(CHAUD[ph]+','+base);
+    return base;
+  }
   function meteo(){
     if(force){applique(force);return;}
     fetch('https://api.open-meteo.com/v1/forecast?latitude='+PARIS.lat+'&longitude='+PARIS.lon+
@@ -615,14 +629,15 @@ body[data-ciel="nuit"] .grain{opacity:.40}
         var c=d&&d.current?d.current:null;
         var lev=d&&d.daily&&d.daily.sunrise?hhmm(d.daily.sunrise[0]):null;
         var cou=d&&d.daily&&d.daily.sunset?hhmm(d.daily.sunset[0]):null;
-        var p=phase(lev,cou);
-        if(p==='nuit'){applique('nuit');return;}
-        var gros = c && c.weather_code>=51;
-        if(p==='aube'){applique(gros?famille(c.weather_code):'aube');return;}
-        if(p==='crepuscule'){applique(gros?famille(c.weather_code):'crepuscule');return;}
-        applique(famille(c?c.weather_code:3));
+        var ph=phase(lev,cou);
+        var w=wxForce!==null?famille(wxForce):famille(c?c.weather_code:3);
+        var etat;
+        if(ph==='nuit') etat='nuit';
+        else if((ph==='aube'||ph==='crepuscule')&&(w==='clair'||w==='nuageux')) etat=ph;
+        else etat=w;
+        applique(etat, rendu(ph,w));
       })
-      .catch(function(){applique(phase(null,null))});
+      .catch(function(){var ph=phase(null,null);applique(ph==='clair'?'clair':ph)});
   }
   meteo();
   setInterval(meteo,5*60*1000);
