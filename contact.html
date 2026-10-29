@@ -357,11 +357,7 @@ html{background:#1E5480}
 body.sky{background:transparent!important}
 .bg{position:fixed;left:-8vw;top:-8vh;width:116vw;height:116vh;z-index:-1;pointer-events:none;
   background:url("assets/img/ciel.jpg") center/cover no-repeat;
-  animation:derive 78s cubic-bezier(.37,0,.63,1) infinite alternate;will-change:transform}
-@keyframes derive{
-  from{transform:scale(1.02) translate3d(-1.2%,0.4%,0)}
-  to{transform:scale(1.11) translate3d(1.6%,-1.1%,0)}
-}
+  transform:scale(1.02)}
 @media(prefers-reduced-motion:reduce){.bg{animation:none;transform:scale(1.04)}}
 /* ---- easter egg : avions ---- */
 .planes{position:fixed;inset:0;pointer-events:none;z-index:2}
@@ -554,8 +550,6 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   var heureForce=parseFloat(new URLSearchParams(location.search).get('heure'));
   var _wx=new URLSearchParams(location.search).get('wx');
   var wxForce=_wx===null?null:parseInt(_wx,10);
-  (function(){var b=document.querySelector('.bg');if(!b)return;
-    var cycle=156; b.style.animationDelay='-'+(((Date.now()/1000)%cycle).toFixed(2))+'s';})();
 
   function hhmm(s){ if(!s) return null; var m=String(s).match(/T(\d{2}):(\d{2})/); return m?parseInt(m[1],10)+parseInt(m[2],10)/60:null; }
   function heureParis(){
