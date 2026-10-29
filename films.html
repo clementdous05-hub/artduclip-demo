@@ -249,43 +249,86 @@ body[data-ciel="nuit"] .wordmark .lg-white{display:block}
 </script>
 <script>
 (function(){
-  var voile=document.querySelector('.ciel-voile'),pluie=document.querySelector('.pluie');
+  var PARIS={lat:48.8566,lon:2.3522};
+  var voile=document.querySelector('.ciel-voile'), pluie=document.querySelector('.pluie'), bg=document.querySelector('.bg');
   var force=new URLSearchParams(location.search).get('ciel');
-  /* même phase d'animation sur toutes les pages, recalée sur l'horloge */
-  (function(){var bg=document.querySelector('.bg');if(!bg)return;
-    var cycle=156; /* 78 s x 2 (alternate) */
-    bg.style.animationDelay='-'+(((Date.now()/1000)%cycle).toFixed(2))+'s';})();
-  function heureParis(){try{var h=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());
-    return parseInt(h.split(':')[0],10)+parseInt(h.split(':')[1],10)/60;}catch(e){var d=new Date();return d.getHours()+d.getMinutes()/60;}}
-  function famille(code){if(code===0||code===1)return 'clair';if(code===2||code===3)return 'nuageux';
-    if(code===45||code===48)return 'brouillard';if(code>=51&&code<=67)return 'pluie';if(code>=71&&code<=77)return 'neige';
-    if(code>=80&&code<=82)return 'pluie';if(code>=85&&code<=86)return 'neige';if(code>=95)return 'orage';return 'nuageux';}
-  var VOILES={clair:'transparent',
+  var heureForce=parseFloat(new URLSearchParams(location.search).get('heure'));
+  (function(){var b=document.querySelector('.bg');if(!b)return;
+    var cycle=156; b.style.animationDelay='-'+(((Date.now()/1000)%cycle).toFixed(2))+'s';})();
+
+  function hhmm(s){ if(!s) return null; var m=String(s).match(/T(\d{2}):(\d{2})/); return m?parseInt(m[1],10)+parseInt(m[2],10)/60:null; }
+  function heureParis(){
+    if(!isNaN(heureForce)) return heureForce;
+    try{var h=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());
+      return parseInt(h.split(':')[0],10)+parseInt(h.split(':')[1],10)/60;}catch(e){var d=new Date();return d.getHours()+d.getMinutes()/60;}
+  }
+  function famille(code){
+    if(code===0||code===1) return 'clair';
+    if(code===2||code===3) return 'nuageux';
+    if(code===45||code===48) return 'brouillard';
+    if(code>=51&&code<=67) return 'pluie';
+    if(code>=71&&code<=77) return 'neige';
+    if(code>=80&&code<=82) return 'pluie';
+    if(code>=85&&code<=86) return 'neige';
+    if(code>=95) return 'orage';
+    return 'nuageux';
+  }
+  var VOILES={
+    clair:'transparent',
     nuageux:'linear-gradient(180deg,rgba(126,136,148,.30),rgba(110,120,134,.34))',
     brouillard:'linear-gradient(180deg,rgba(206,210,214,.46),rgba(196,200,206,.42))',
     pluie:'linear-gradient(180deg,rgba(58,70,86,.46),rgba(44,56,72,.52))',
     neige:'linear-gradient(180deg,rgba(214,224,234,.40),rgba(200,212,224,.38))',
     orage:'linear-gradient(180deg,rgba(32,38,54,.60),rgba(22,28,44,.66))',
-    aube:'linear-gradient(180deg,rgba(255,168,120,.34) 0%,rgba(120,120,170,.30) 55%,rgba(40,52,88,.42) 100%)',
-    crepuscule:'linear-gradient(180deg,rgba(255,132,66,.32) 0%,rgba(196,96,86,.26) 45%,rgba(38,42,74,.50) 100%)',
-    nuit:'linear-gradient(180deg,rgba(6,10,30,.56),rgba(3,6,20,.66))'};
-  function applique(e){document.body.setAttribute('data-ciel',e);
-    voile.style.background=VOILES[e]||'transparent';
-    pluie.style.opacity=(e==='pluie')?'.26':(e==='orage'?'.32':'0');}
-  function depuisHeure(){var h=heureParis();if(h<5.5||h>=21.5)return 'nuit';if(h<8)return 'aube';if(h>=18&&h<20.5)return 'crepuscule';return 'clair';}
+    aube:'linear-gradient(0deg,rgba(255,178,120,.46) 0%,rgba(214,148,146,.30) 32%,rgba(92,96,140,.28) 68%,rgba(38,48,86,.40) 100%)',
+    crepuscule:'linear-gradient(0deg,rgba(255,138,68,.48) 0%,rgba(206,104,86,.30) 34%,rgba(74,64,96,.34) 70%,rgba(24,28,58,.58) 100%)',
+    nuit:'linear-gradient(180deg,rgba(6,10,30,.56),rgba(3,6,20,.66))'
+  };
+  var dernier=null;
+  function applique(etat){
+    if(etat===dernier) { document.body.setAttribute('data-ciel',etat); return; }
+    dernier=etat;
+    document.body.setAttribute('data-ciel',etat);
+    voile.style.background=VOILES[etat]||'transparent';
+    pluie.style.opacity=(etat==='pluie')?'.26':(etat==='orage'?'.32':'0');
+    bg.style.opacity='1';
+  }
+  /* phase deduite du soleil de Paris : lever et coucher reels du jour */
+  function phase(lever,coucher){
+    var h=heureParis();
+    if(lever==null||coucher==null){
+      if(h<5.5||h>=21.5) return 'nuit';
+      if(h<8) return 'aube';
+      if(h>=18&&h<20.5) return 'crepuscule';
+      return 'clair';
+    }
+    if(h>=lever-0.75 && h<lever+0.75) return 'aube';
+    if(h>=coucher-1.0 && h<coucher+0.5) return 'crepuscule';
+    if(h>=lever+0.75 && h<coucher-1.0) return 'clair';
+    return 'nuit';
+  }
   function meteo(){
     if(force){applique(force);return;}
-    var h=heureParis();
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&current=weather_code,is_day&timezone=Europe%2FParis')
-      .then(function(r){return r.json()}).then(function(d){
-        var c=d&&d.current;if(!c){applique(depuisHeure());return;}
-        if(c.is_day!==1){applique('nuit');return;}
-        if(h<8){applique('aube');return;}
-        if(h>=18&&h<20.5&&c.weather_code<=2){applique('crepuscule');return;}
-        applique(famille(c.weather_code));
-      }).catch(function(){applique(depuisHeure())});
+    fetch('https://api.open-meteo.com/v1/forecast?latitude='+PARIS.lat+'&longitude='+PARIS.lon+
+          '&current=weather_code,cloud_cover,is_day&daily=sunrise,sunset&timezone=Europe%2FParis&forecast_days=1')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var c=d&&d.current?d.current:null;
+        var lev=d&&d.daily&&d.daily.sunrise?hhmm(d.daily.sunrise[0]):null;
+        var cou=d&&d.daily&&d.daily.sunset?hhmm(d.daily.sunset[0]):null;
+        var p=phase(lev,cou);
+        if(p==='nuit'){applique('nuit');return;}
+        var gros = c && c.weather_code>=51;
+        if(p==='aube'){applique(gros?famille(c.weather_code):'aube');return;}
+        if(p==='crepuscule'){applique(gros?famille(c.weather_code):'crepuscule');return;}
+        applique(famille(c?c.weather_code:3));
+      })
+      .catch(function(){applique(phase(null,null))});
   }
-  meteo();setInterval(meteo,600000);
+  meteo();
+  setInterval(meteo,5*60*1000);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) meteo(); });
+  addEventListener('focus',meteo);
 })();
 </script>
 <script>
