@@ -361,13 +361,17 @@ body.sky{background:transparent!important}
 @media(prefers-reduced-motion:reduce){.bg{animation:none;transform:scale(1.04)}}
 /* ---- easter egg : avions ---- */
 .planes{position:fixed;inset:0;pointer-events:none;z-index:2}
-.plane{position:fixed;top:var(--y);left:-14vw;width:var(--w);height:auto;padding:0;border:0;background:none;
-  cursor:pointer;pointer-events:auto;opacity:.62;filter:blur(.15px);
-  animation:vol var(--d) linear var(--delay) infinite;transition:opacity .35s ease}
-.plane{color:#0A0A0A}.plane svg{display:block;width:100%;height:auto}
-.plane svg path{transform:rotate(-12deg);transform-origin:center}
+.plane{position:fixed;top:var(--y,80px);left:-18vw;width:var(--w);height:auto;padding:0;border:0;background:none;
+  cursor:pointer;pointer-events:auto;opacity:.55;
+  animation:vol var(--d,64s) linear var(--delay,0s) infinite;will-change:transform}
+.plane svg{display:block;width:100%;height:auto;transform:rotate(-7deg);transform-origin:60% 60%}
+.plane .trail{position:absolute;right:calc(100% - 3px);top:56%;width:calc(var(--w,40px) * 2.35);height:2.6px;border-radius:3px;
+  background:linear-gradient(to left,rgba(255,255,255,.98) 0%,rgba(255,255,255,.62) 34%,rgba(255,255,255,.22) 66%,rgba(255,255,255,0) 100%);
+  filter:blur(.35px)}
+.plane .trail::after{content:"";position:absolute;left:2px;top:-4.5px;width:74%;height:1.2px;border-radius:2px;
+  background:linear-gradient(to left,rgba(255,255,255,.72),rgba(255,255,255,.16) 60%,rgba(255,255,255,0))}
 .plane:hover,.plane:focus-visible{opacity:.95;outline:none}
-@keyframes vol{from{transform:translate3d(0,0,0)}to{transform:translate3d(130vw,var(--dy),0)}}
+@keyframes vol{0%{transform:translate3d(0,0,0);opacity:0}7%{opacity:.55}93%{opacity:.55}100%{transform:translate3d(136vw,0,0);opacity:0}}
 @media(prefers-reduced-motion:reduce){.plane{animation:none;display:none}}
 
 .hangar{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;
@@ -520,9 +524,9 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   <a class="lgx" href="index.html" aria-label="Art du Clip, retour à l'accueil"></a>
 
   <div class="planes">
-    <button class="plane" style="--y:28%;--d:58s;--delay:3s;--w:64px;--dy:4vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
-    <button class="plane" style="--y:70%;--d:74s;--delay:26s;--w:48px;--dy:-5vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
-    <button class="plane" style="--y:83%;--d:96s;--delay:52s;--w:38px;--dy:6vh" aria-label="Ouvrir les projets annexes"><svg viewBox="0 0 160 60" aria-hidden="true"><path d="M4 30C6 24 22 21 44 21h84c18 0 26 4 28 9-2 5-10 9-28 9H44C22 39 6 36 4 30Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.4"/><path d="M114 21h12l-4-18h-12z" fill="#E8452A"/><path d="M54 39h40L78 54H46z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="1.2"/><path d="M96 39h16l6 14H98z" fill="#E8452A" opacity=".9"/><rect x="14" y="27" width="122" height="4.5" fill="#E8452A"/><circle cx="24" cy="24.5" r="2.8" fill="#0A0A0A" opacity=".45"/></svg></button>
+    <button class="plane" style="--w:42px;--d:64s;--delay:2s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 240 92" aria-hidden="true"><path d="M14 47C14 39 26 35 44 35H184c20 0 34 5 42 12-8 7-22 12-42 12H44C26 59 14 55 14 47Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2.4"/><path d="M184 35h20l12-28h-20z" fill="#E8452A" stroke="#0A0A0A" stroke-width="2"/><path d="M98 59h54l-24 25H72z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2"/><path d="M106 61h20c4 0 6 3 6 6s-2 6-6 6h-20c-4 0-6-3-6-6s2-6 6-6z" fill="#E8452A" stroke="#0A0A0A" stroke-width="1.6"/><rect x="28" y="51" width="160" height="3" fill="#E8452A"/><path d="M22 41h13v6H22z" fill="#0A0A0A"/></svg></button>
+    <button class="plane" style="--w:34px;--d:78s;--delay:24s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 240 92" aria-hidden="true"><path d="M14 47C14 39 26 35 44 35H184c20 0 34 5 42 12-8 7-22 12-42 12H44C26 59 14 55 14 47Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2.4"/><path d="M184 35h20l12-28h-20z" fill="#E8452A" stroke="#0A0A0A" stroke-width="2"/><path d="M98 59h54l-24 25H72z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2"/><path d="M106 61h20c4 0 6 3 6 6s-2 6-6 6h-20c-4 0-6-3-6-6s2-6 6-6z" fill="#E8452A" stroke="#0A0A0A" stroke-width="1.6"/><rect x="28" y="51" width="160" height="3" fill="#E8452A"/><path d="M22 41h13v6H22z" fill="#0A0A0A"/></svg></button>
+    <button class="plane" style="--w:28px;--d:92s;--delay:50s" aria-label="Ouvrir les projets annexes"><span class="trail" aria-hidden="true"></span><svg viewBox="0 0 240 92" aria-hidden="true"><path d="M14 47C14 39 26 35 44 35H184c20 0 34 5 42 12-8 7-22 12-42 12H44C26 59 14 55 14 47Z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2.4"/><path d="M184 35h20l12-28h-20z" fill="#E8452A" stroke="#0A0A0A" stroke-width="2"/><path d="M98 59h54l-24 25H72z" fill="#F7F3EA" stroke="#0A0A0A" stroke-width="2"/><path d="M106 61h20c4 0 6 3 6 6s-2 6-6 6h-20c-4 0-6-3-6-6s2-6 6-6z" fill="#E8452A" stroke="#0A0A0A" stroke-width="1.6"/><rect x="28" y="51" width="160" height="3" fill="#E8452A"/><path d="M22 41h13v6H22z" fill="#0A0A0A"/></svg></button>
   </div>
 
   <div class="hangar" id="hangar" hidden>
@@ -554,6 +558,19 @@ body[data-ciel="nuit"] .grain{opacity:.40}
   function open(){h.hidden=false;document.documentElement.style.overflow='hidden';}
   function close(){h.hidden=true;document.documentElement.style.overflow='';}
   document.querySelectorAll('.plane').forEach(function(b){b.addEventListener('click',open)});
+  function placeAvions(){
+    var intro=document.querySelector('.intro');
+    var plafond=intro?intro.getBoundingClientRect().top-window.scrollY:window.innerHeight*.2;
+    var haut=8, bas=Math.max(haut+34, plafond-30);
+    var ps=[].slice.call(document.querySelectorAll('.plane'));
+    ps.forEach(function(p,i){
+      var t=ps.length>1?i/(ps.length-1):.5;
+      p.style.setProperty('--y', Math.round(haut+(bas-haut)*t)+'px');
+    });
+  }
+  placeAvions();
+  addEventListener('resize',placeAvions,{passive:true});
+  addEventListener('load',placeAvions);
   h.querySelector('.hangar-x').addEventListener('click',close);
   h.addEventListener('click',function(e){if(e.target===h)close()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
